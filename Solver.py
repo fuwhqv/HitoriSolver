@@ -173,10 +173,53 @@ class Solver:
                     if self.game.brd[ady][adx].getData() == self.game.brd[bdy][bdx].getData():
                         self.game.brd[y][x].toggleCCW()
                         #print('did something at (%d, %d)!'%(x, y))
-                        self.toggleAdjEmptyToWhite(y, x)
-        
+                        self.toggleAdjEmptyToWhite(x, y)
+
+    def step7(self, x, y):
+#Step 7: Similarly with step 6, find a pair of duplicate neighboring each other,
+#and then find another duplicate which is in orthogonal,
+#seemingly shapes like L. Target cell is the shared one.
+#check if two cells other than the target cell neighbors same number in the same line.
+#if yes, toggle the target cell to black.
+#ex) 1 4 5 1 2  <<in this case, if target cell is not black, the two 2s will conflict.
+#    2 3 2 1 5
+        if not self.game.brd[y][x].isEmpty(): return
+        for [dx, dy] in dxy:
+            ax = x + dx; ay = y + dy
+            if not self.game.isInBoard(ax, ay): continue
+            if self.game.brd[y][x].getData() != self.game.brd[ay][ax].getData(): continue
+            bdx = dy * dy; bdy = dx * dx
+            bx = x * bdy - bdx; by = y * bdx - bdy
+            while True:
+                bx += bdx; by += bdy
+                if not self.game.isInBoard(bx, by): return
+                if(bx == x and by == y): continue
+                if self.game.brd[y][x].getData() == self.game.brd[by][bx].getData():
+                    for [ddx1, ddy1] in dxy:
+                        px = ax + ddx1; py = ay + ddy1
+                        for [ddx2, ddy2] in dxy:
+                            qx = bx + ddx2; qy = by + ddy2
+                            if not (self.game.isInBoard(px, py) and self.game.isInBoard(qx, qy)): continue
+                            if px != qx and py != qy: continue
+                            if px == qx and py == qy: continue
+                            if self.game.brd[py][px].getData() == self.game.brd[qy][qx].getData():
+                                self.game.brd[y][x].toggleCCW()
+                                self.toggleAdjEmptyToWhite(x, y)
+                                #print('did something at (%d,%d)!'%(x, y))
+                                #self.printColorsOnly()
+                                return
+
     def solve(self):
-        steps = [self.step0, self.step1, self.step2, self.step3, self.step4, self.step5, self.step6, self.stepX]
+        steps = [self.step0,
+                 self.step1,
+                 self.step2,
+                 self.step3,
+                 self.step4,
+                 self.step5,
+                 self.step6,
+                 self.step7,
+                 self.stepX
+                ]
         idx = 0
 
         while not self.isFinished():

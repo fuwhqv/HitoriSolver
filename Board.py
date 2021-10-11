@@ -2,6 +2,7 @@ from Cell import Cell
 from copy import deepcopy
 
 dxy = [[1,0],[0,1],[-1,0],[0,-1]]
+colorType = ['  ', '■', '□']
 
 class Board:
     def __init__(self, arr = [[1,1],[1,2]]):
@@ -18,20 +19,10 @@ class Board:
                 self.brd[i][j] = Cell(val)
 
     def __repr__(self):
-        ret = ''
-        for row in self.brd:
-            for cell in row:
-                ret += str(cell)
-            ret += '\n'
-        return ret
+        return '\n'.join([''.join(map(str, row)) for row in self.brd])
 
     def getColorsOnly(self):
-        ret = ''
-        for row in self.brd:
-            for cell in row:
-                ret += '■' if cell.isWhite() else ('□' if cell.isBlack() else '  ')
-            ret += '\n'
-        return ret
+        return '\n'.join([''.join(map(lambda x: colorType[x.getType()], row)) for row in self.brd])
 
     def isInBoard(self, x, y): return x>=0 and y>=0 and x<self.m and y<self.n
     def print(self): print(self)

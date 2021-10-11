@@ -17,6 +17,8 @@ class Cell:
     def toggleCCW(self): self.type = (self.type+2)%3
 
     def getData(self): return self.data
+    def getType(self): return self.type
+    
     def isEmpty(self): return self.type == 0
     def isWhite(self): return self.type == 1
     def isBlack(self): return self.type == 2
@@ -26,7 +28,7 @@ class Cell:
         if   self.type == 0: ret += 'E'
         elif self.type == 1: ret += 'W'
         elif self.type == 2: ret += 'B'
-        else:                ret += 'x'
+        else: raise Exception('Corrupted Cell')
         ret += '%02d]'%self.data
         return ret
 

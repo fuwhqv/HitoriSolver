@@ -7,12 +7,7 @@ class Solver:
         self.game = Board(arr)
 
     def __repr__(self):
-        ret = ''
-        for row in self.game.brd:
-            for cell in row:
-                ret += str(cell)
-            ret += '\n'
-        return ret
+        return self.game.__repr__()
 
     def setBoard(self, brd:Board): self.game = brd
     def isFinished(self): return self.game.isFinished()

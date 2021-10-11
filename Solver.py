@@ -1,5 +1,5 @@
 from Cell import Cell
-import copy, time
+import copy
 from Board import Board, dxy # dxy = [[1,0],[0,1],[-1,0],[0,-1]]
 
 class Solver:
@@ -240,6 +240,7 @@ if __name__=='__main__':
     
     print(str(game) + '\n')
 
+    import time
     st = time.time()
     game.solve()
     ed = time.time()

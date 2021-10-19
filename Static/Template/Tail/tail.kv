@@ -1,0 +1,14 @@
+<Tail>:
+    orientation: 'horizontal'
+
+    Button:
+        text: 'Menu'
+        on_press: root.on_menu()
+
+    Button:
+        text: 'Play'
+        on_press: root.on_play(root.parent.ids.body.ids.board)
+
+    Button:
+        text: 'Skip'
+        on_press: root.on_skip(root.parent.ids.body.ids.board)

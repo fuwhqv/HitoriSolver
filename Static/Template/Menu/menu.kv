@@ -1,0 +1,49 @@
+<Menu>:
+    orientation: 'vertical'
+    padding: '8dp'
+    spacing: '8dp'
+
+    BoxLayout:
+        orientation: 'vertical'
+        size_hint: 1, None
+
+        Button:
+            height: '50dp'
+            text: 'New Game'
+            on_press: root.on_newGame()
+
+        Button:
+            height: '50dp'
+            text: 'Restart'
+            on_press: root.on_restart()
+
+    BoxLayout:
+        orientation: 'vertical'
+
+        BoxLayout:
+            height: '200dp'
+            TextInput:
+                id: input
+                hint_text: 'The input consists of lines of numbers, seperated by spaces like:\n1 1\n1 2'
+
+        Button:
+            size_hint: 1, None
+            height: '50dp'
+            text: 'Read from Text'
+            on_press: root.on_readText(root.ids.input)
+
+        Label:
+            id: invalidInput
+            size_hint: 1, None
+            height: '30dp'
+            color: (1,0,0,1)
+            text: ''
+
+
+    Label:
+        size_hint: 1, None
+        height: '50dp'
+        pos_hint: {'right':1}
+        color: (0,0,0,1)
+        text: 'Created by fuwhqv'
+

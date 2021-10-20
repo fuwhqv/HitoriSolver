@@ -1,11 +1,13 @@
 from kivy.uix.label import Label
-from kivy.graphics import Color, Rectangle
+from kivy.graphics import Color, Rectangle, Line
 
 
 bcolors = [(.5, .5, .5,  1), ( 1,  1,  1,  1),
            ( 0,  0,  0,  1), (.5,  1, .5,  1)]
 fcolors = [( 0,  0,  0,  1), ( 0,  0,  0,  1),
            ( 1,  1,  1,  1), ( 0,  0,  0,  1)]
+hcolors = [(.8, .8, .7,  1), ( 1,  1, .4,  1),
+           (.5, .5, .2,  1), (.5,  1, .5,  1)]
 
 
 class Lcell:
@@ -47,5 +49,11 @@ class Lcell:
         self.label.canvas.before.clear()
         with self.label.canvas.before:
             Color(*self.bgColor)
+            self.label.rect = Rectangle(pos = self.label.pos, size = self.label.size)
+
+    def drawHint(self):
+        self.label.canvas.before.clear()
+        with self.label.canvas.before:
+            Color(*hcolors[self.cidx])
             self.label.rect = Rectangle(pos = self.label.pos, size = self.label.size)
 

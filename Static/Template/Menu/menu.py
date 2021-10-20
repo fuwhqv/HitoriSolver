@@ -6,8 +6,11 @@ class Menu(MDBoxLayout):
     def on_readText(self, widget):
         try:
             brd = list(map(
-                lambda s: list(map(int, s.split())),
-                widget.text.strip().split('\n')
+                lambda y: list(map(int, y.split())),
+                list(map(
+                    lambda x: ' '.join(x.split()),
+                    widget.text.replace('[','').replace(']','').replace(',',' ').strip().split('\n')
+                ))
             ))
             n = len(brd)
             for row in brd:
@@ -18,6 +21,7 @@ class Menu(MDBoxLayout):
             self.ids.invalidInput.text = 'The input is invalid!'
             return
 
+        self.ids.input.text = ''
         App.get_running_app().root.ids.main.ids.body.ids.board.make(brd)
         App.get_running_app().root.ids.nav_drawer.set_state('close')
 
@@ -25,7 +29,7 @@ class Menu(MDBoxLayout):
         App.get_running_app().root.ids.main.ids.body.ids.board.clear()
         App.get_running_app().root.ids.nav_drawer.set_state('close')
 
-    def on_newGame(self):
-        #TODO: find a way to select the sizes from a list
+    def on_setting(self):
+        #TODO: show a popup with settings
         pass
 

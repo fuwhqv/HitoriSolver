@@ -8,9 +8,12 @@ class Tail(BoxLayout):
         super().__init__(**kwargs)
 
     def on_menu(self):
+        self.ids.play.state='normal'
         App.get_running_app().root.ids.menu.ids.invalidInput.text=''
         App.get_running_app().root.ids.nav_drawer.set_state('open')
 
-    def on_play(self, widget): widget.play()
-    def on_skip(self, widget): widget.skip()
+    def on_toggle(self, state, widget): widget.toggle(state)
+    def on_skip(self, widget):
+        self.ids.play.state='normal'
+        widget.skip()
 

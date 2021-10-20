@@ -5,10 +5,12 @@
         text: 'Menu'
         on_press: root.on_menu()
 
-    Button:
+    ToggleButton:
+        id: play
         text: 'Play'
-        on_press: root.on_play(root.parent.ids.body.ids.board)
+        on_state: root.on_toggle(self.state, root.parent.ids.body.ids.board)
 
     Button:
         text: 'Skip'
         on_press: root.on_skip(root.parent.ids.body.ids.board)
+
